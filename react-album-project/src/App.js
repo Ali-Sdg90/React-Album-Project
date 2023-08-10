@@ -7,6 +7,7 @@ import Auth from "./components/Auth";
 import Card from "./components/Card";
 
 import { db } from "./config/firebase";
+import Album from "./components/Album";
 
 export const AppContext = React.createContext();
 
@@ -57,7 +58,8 @@ const App = () => {
                 {/* <Auth /> */}
                 {/* {imgList.map((imgInfo) => (
                 <Card imgInfo={imgInfo} />))} */}
-                <Lightbox />
+                {/* <Lightbox /> */}
+                <Album />
             </AppContext.Provider>
         </div>
     );
