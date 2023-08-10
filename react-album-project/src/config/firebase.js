@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
+import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
     apiKey: "AIzaSyA1XNmhbe_zmRI-fCnHWbA44De8D2XOtOc",
     authDomain: "react-album-ali9093.firebaseapp.com",
@@ -16,3 +18,5 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
+
+export const db = getFirestore(app);
