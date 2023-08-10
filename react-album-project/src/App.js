@@ -1,5 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import Lightbox from "./components/Lightbox";
 
 import "./App.css";
 import Auth from "./components/Auth";
@@ -7,10 +8,15 @@ import Card from "./components/Card";
 
 import { db } from "./config/firebase";
 
+export const AppContext = React.createContext();
+
 const collectionName = "Images";
 
 const App = () => {
     const [imgList, setImgList] = useState([]);
+
+    const [showLightBox, setShowLightBox] = useState(false);
+    const [currentImageIndex, setCurrentIndex] = useState(0);
 
     const imgCollectionRef = collection(db, collectionName);
 
@@ -27,17 +33,32 @@ const App = () => {
             } catch (err) {
                 console.error(err);
             }
+            getMovieList();
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    setShowLightBox(false);
+                }
+            });
         };
-        getMovieList();
     }, []);
 
     return (
         <div>
-            {/* <h1>Hello</h1> */}
-            {/* <Auth /> */}
-            {imgList.map((imgInfo) => (
-                <Card imgInfo={imgInfo} />
-            ))}
+            <AppContext.Provider
+                value={{
+                    showLightBox,
+                    setShowLightBox,
+                    currentImageIndex,
+                    setCurrentIndex,
+                }}
+            >
+                {/* <h1>Hello</h1> */}
+                {/* <Auth /> */}
+                {/* {imgList.map((imgInfo) => (
+                <Card imgInfo={imgInfo} />))} */}
+                <Lightbox />
+            </AppContext.Provider>
         </div>
     );
 };
