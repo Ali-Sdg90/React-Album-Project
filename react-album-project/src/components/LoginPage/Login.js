@@ -3,6 +3,7 @@ import validData from "./validData";
 
 import Styles from "./Login.module.css";
 import { Link } from "react-router-dom";
+import Auth from "./Auth";
 
 const Login = () => {
     const [data, setData] = useState({
@@ -12,6 +13,7 @@ const Login = () => {
 
     const [errors, setErrors] = useState({});
     const [isFocused, setIsFocused] = useState({});
+    const [allowAuth, setAllowAuth] = useState(false);
 
     useEffect(() => {
         setErrors(validData(data, "login"));
@@ -40,9 +42,11 @@ const Login = () => {
         event.preventDefault();
         if (!Object.keys(errors).length) {
             console.log("OK");
+            setAllowAuth(true);
             // console.log(data);
         } else {
             console.log("Error");
+            setAllowAuth(false);
             setIsFocused({
                 email: true,
                 password: true,
@@ -100,6 +104,7 @@ const Login = () => {
                     <button>Login With Google</button>
                 </div>
             </form>
+            {allowAuth && <Auth data={data} />}
         </div>
     );
 };

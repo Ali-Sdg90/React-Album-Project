@@ -17,17 +17,23 @@ button:active {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background:
+        url("../../imgs/login-background.jpeg");
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
 }
 
 .formContainer {
-    border: 1px solid silver;
     width: fit-content;
     padding: 62.5px;
     padding-bottom: 25px;
     margin: 62.5px;
     border-radius: 12.5px;
     height: fit-content;
-    background: #fff;
+    background: linear-gradient(rgb(211, 211, 211),rgb(219, 219, 219));
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .header {
@@ -110,7 +116,8 @@ button:active {
     align-items: center;
     cursor: pointer;
     box-shadow: 0 3.75px 12.5px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 0.1875s, transform 0.1875s, letter-spacing 0.1875s, background 0.1875s;
+    transition: box-shadow 0.1875s, transform 0.1875s, letter-spacing 0.1875s,
+        background 0.1875s;
     width: 400px;
     border: 1.25px solid black;
     letter-spacing: 0.875px;
@@ -134,21 +141,27 @@ button:active {
 }
 
 .formButtones button:nth-child(2) {
-    background: #185cb6 url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png") no-repeat;
+    background: #185cb6
+        url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
+        no-repeat;
     background-size: 25px;
     background-position: 93.75px;
     padding-left: 62.5px;
 }
 
 .formButtones button:nth-child(2):hover {
-    background: #13488f url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png") no-repeat;
+    background: #13488f
+        url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
+        no-repeat;
     background-size: 25px;
     background-position: 93.75px;
     padding-left: 62.5px;
 }
 
 .formButtones button:nth-child(2):active {
-    background: #11407d url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png") no-repeat;
+    background: #11407d
+        url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
+        no-repeat;
     background-size: 25px;
     background-position: 96.25px;
     padding-left: 62.5px;

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Lightbox from "./components/Lightbox";
 
 import "./App.css";
-import Auth from "./components/Auth";
+import Auth from "./components/old-components/Auth";
 import Card from "./components/Card";
 
 import { db } from "./config/firebase";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Styles from "./Auth.module.css";
 
-import { auth, googleProvider } from "../config/firebase";
+import { auth, googleProvider } from "../../config/firebase";
 import {
     createUserWithEmailAndPassword,
     signInWithPopup,
@@ -9,7 +9,7 @@ import {
     onAuthStateChanged,
 } from "firebase/auth";
 
-import noPhoto from "../imgs/no-photo.png";
+import noPhoto from "../../imgs/no-photo.png";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
