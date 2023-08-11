@@ -20,6 +20,8 @@ const App = () => {
     const [showLightBox, setShowLightBox] = useState(false);
     const [currentImageIndex, setCurrentIndex] = useState(0);
 
+    const [loginInfo, setLoginInfo] = useState({});
+
     const imgCollectionRef = collection(db, collectionName);
 
     useEffect(() => {
@@ -45,6 +47,10 @@ const App = () => {
         };
     }, []);
 
+    useEffect(() => {
+        console.log("=>", loginInfo.email);
+    }, [loginInfo]);
+
     return (
         <div>
             <AppContext.Provider
@@ -53,14 +59,16 @@ const App = () => {
                     setShowLightBox,
                     currentImageIndex,
                     setCurrentIndex,
+                    loginInfo,
+                    setLoginInfo,
                 }}
             >
                 {/* <h1>Hello</h1> */}
-                {/* <Auth /> */}
                 {/* {imgList.map((imgInfo) => (
                 <Card imgInfo={imgInfo} />))} */}
                 {/* <Lightbox /> */}
                 {/* <Album /> */}
+                {/* <Auth /> */}
                 <Login />
             </AppContext.Provider>
         </div>

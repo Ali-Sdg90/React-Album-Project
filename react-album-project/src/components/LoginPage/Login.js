@@ -13,7 +13,7 @@ const Login = () => {
 
     const [errors, setErrors] = useState({});
     const [isFocused, setIsFocused] = useState({});
-    const [allowAuth, setAllowAuth] = useState(false);
+    const [allowAuth, setAllowAuth] = useState("");
 
     useEffect(() => {
         setErrors(validData(data, "login"));
@@ -42,17 +42,23 @@ const Login = () => {
         event.preventDefault();
         if (!Object.keys(errors).length) {
             console.log("OK");
-            setAllowAuth(true);
+            setAllowAuth("email");
             // console.log(data);
         } else {
             console.log("Error");
-            setAllowAuth(false);
+            setAllowAuth("");
             setIsFocused({
                 email: true,
                 password: true,
             });
         }
     };
+
+    useEffect(() => {
+        if (Object.keys(errors).length) {
+            setAllowAuth("");
+        }
+    }, [Object.keys(errors).length]);
 
     return (
         <div className={Styles.container}>
@@ -101,10 +107,13 @@ const Login = () => {
                 <br></br>
                 <div className={Styles.formButtones}>
                     <button type="submit">Login</button>
-                    <button>Login With Google</button>
+                    <button onClick={() => setAllowAuth("gmail")}>
+                        Login With Google
+                    </button>
                 </div>
             </form>
-            {allowAuth && <Auth data={data} />}
+            {/* {console.log(allowAuth.length)} */}
+            {allowAuth.length ? <Auth data={data} method={allowAuth} /> : ""}
         </div>
     );
 };
