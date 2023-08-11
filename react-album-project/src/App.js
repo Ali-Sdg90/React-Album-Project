@@ -9,6 +9,7 @@ import Card from "./components/Card";
 import { db } from "./config/firebase";
 import Album from "./components/Album";
 import Login from "./components/LoginPage/Login";
+import { Route, Routes } from "react-router-dom";
 
 export const AppContext = React.createContext();
 
@@ -69,7 +70,11 @@ const App = () => {
                 {/* <Lightbox /> */}
                 {/* <Album /> */}
                 {/* <Auth /> */}
-                <Login />
+                {/* <Login /> */}
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/album" element={<Album />} />
+                </Routes>
             </AppContext.Provider>
         </div>
     );

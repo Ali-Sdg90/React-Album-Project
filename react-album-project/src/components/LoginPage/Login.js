@@ -62,7 +62,7 @@ const Login = () => {
 
     return (
         <div className={Styles.container}>
-            <form onSubmit={submitHandler} className={Styles.formContainer}>
+            <form className={Styles.formContainer}>
                 <h1 className={Styles.header}>Login</h1>
 
                 <div className={Styles.formField}>
@@ -106,13 +106,17 @@ const Login = () => {
                 </div>
                 <br></br>
                 <div className={Styles.formButtones}>
-                    <button type="submit">Login</button>
-                    <button onClick={() => setAllowAuth("gmail")}>
+                    <button onClick={submitHandler}>Login</button>
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setAllowAuth("gmail");
+                        }}
+                    >
                         Login With Google
                     </button>
                 </div>
             </form>
-            {/* {console.log(allowAuth.length)} */}
             {allowAuth.length ? <Auth data={data} method={allowAuth} /> : ""}
         </div>
     );

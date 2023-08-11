@@ -15,7 +15,7 @@ const Auth = ({ data, method }) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 console.log("CHANGE EMAIL");
-                setLoginInfo(user); // Update login info with new user data
+                setLoginInfo(user);
             }
         });
 
@@ -34,11 +34,15 @@ const Auth = ({ data, method }) => {
         }
     };
 
-    const signInWGoogle = () => {
+    const signInWGoogle = async () => {
         try {
-            signInWithPopup(auth, googleProvider);
+            await signInWithPopup(auth, googleProvider);
         } catch (err) {
-            console.error(err);
+            if (err.code === "auth/popup-closed-by-user") {
+                console.log("User closed the popup");
+            } else {
+                console.error(err);
+            }
         }
     };
 
@@ -48,7 +52,7 @@ const Auth = ({ data, method }) => {
         } else {
             signInWGoogle();
         }
-    }, []); // This effect runs only once when component mounts
+    }, []);
 
     return <div></div>;
 };
