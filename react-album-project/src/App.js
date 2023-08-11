@@ -26,7 +26,8 @@ const App = () => {
     const imgCollectionRef = collection(db, collectionName);
 
     useEffect(() => {
-        const getMovieList = async () => {
+        const getImgList = async () => {
+            console.log("in function");
             try {
                 const data = await getDocs(imgCollectionRef);
                 const filteredData = data.docs.map((doc) => ({
@@ -34,18 +35,19 @@ const App = () => {
                     id: doc.id,
                 }));
                 setImgList(filteredData);
-                // console.log(filteredData);
+                console.log("filteredData:", filteredData);
             } catch (err) {
                 console.error(err);
             }
-            getMovieList();
-
-            document.addEventListener("keydown", (event) => {
-                if (event.key === "Escape") {
-                    setShowLightBox(false);
-                }
-            });
         };
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                setShowLightBox(false);
+            }
+        });
+        
+        getImgList();
     }, []);
 
     const navigate = useNavigate();
@@ -70,8 +72,11 @@ const App = () => {
                 }}
             >
                 {/* <h1>Hello</h1> */}
+
                 {/* {imgList.map((imgInfo) => (
-                <Card imgInfo={imgInfo} />))} */}
+                    <Card imgInfo={imgInfo} />
+                ))} */}
+                {console.log("O=>", imgList)}
                 {/* <Lightbox /> */}
                 {/* <Album /> */}
                 <Auth method={"reload"} />
