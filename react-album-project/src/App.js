@@ -8,6 +8,7 @@ import Card from "./components/Card";
 
 import { db } from "./config/firebase";
 import Album from "./components/Album";
+import Login from "./components/LoginPage/Login";
 
 export const AppContext = React.createContext();
 
@@ -59,7 +60,8 @@ const App = () => {
                 {/* {imgList.map((imgInfo) => (
                 <Card imgInfo={imgInfo} />))} */}
                 {/* <Lightbox /> */}
-                <Album />
+                {/* <Album /> */}
+                <Login />
             </AppContext.Provider>
         </div>
     );

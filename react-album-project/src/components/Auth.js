@@ -16,6 +16,7 @@ const Auth = () => {
     const [Password, setPassword] = useState("");
     const [loginEmail, setLoginEmail] = useState("- - -");
     const [userPhoto, setUserPhoto] = useState("");
+    const [userName, setUserName] = useState("");
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -24,9 +25,11 @@ const Auth = () => {
                     ? setUserPhoto(user.photoURL)
                     : setUserPhoto(noPhoto);
                 setLoginEmail(user.email);
+                setUserName(user.displayName);
             } else {
                 setLoginEmail("- - -");
                 setUserPhoto("");
+                setUserName("");
             }
         });
 
@@ -61,7 +64,9 @@ const Auth = () => {
         <div className={Styles.container}>
             {userPhoto && <img src={userPhoto}></img>}
 
-            <h2>{loginEmail}</h2>
+            {/* <h2>{loginEmail}</h2> */}
+
+            {userName ? <h2>{userName}</h2> : <h2>{loginEmail}</h2>}
 
             <input
                 placeholder="Email..."
