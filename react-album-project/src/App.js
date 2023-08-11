@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import Lightbox from "./components/Lightbox";
 
 import "./App.css";
-import Auth from "./components/old-components/Auth";
-import Card from "./components/Card";
+import Auth from "./components/Login-Page/Auth";
+import Card from "./components/Album-Page/Card";
 
 import { db } from "./config/firebase";
-import Album from "./components/Album";
-import Login from "./components/LoginPage/Login";
-import { Route, Routes } from "react-router-dom";
+import Album from "./components/Album-Page/Album";
+import Login from "./components/Login-Page/Login";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 export const AppContext = React.createContext();
 
@@ -48,8 +48,13 @@ const App = () => {
         };
     }, []);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         console.log("=>", loginInfo.email);
+        if (loginInfo.email) {
+            navigate("/album");
+        }
     }, [loginInfo]);
 
     return (
@@ -69,7 +74,7 @@ const App = () => {
                 <Card imgInfo={imgInfo} />))} */}
                 {/* <Lightbox /> */}
                 {/* <Album /> */}
-                {/* <Auth /> */}
+                <Auth method={"reload"} />
                 {/* <Login /> */}
                 <Routes>
                     <Route path="/" element={<Login />} />

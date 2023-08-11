@@ -115,6 +115,14 @@ const Login = () => {
                     >
                         Login With Google
                     </button>
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setAllowAuth("logout");
+                        }}
+                    >
+                        Logout
+                    </button>
                 </div>
             </form>
             {allowAuth.length ? <Auth data={data} method={allowAuth} /> : ""}

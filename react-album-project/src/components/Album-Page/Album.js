@@ -8,6 +8,7 @@ const Album = () => {
         <div className={Styles.container}>
             <Header />
             <p>Body</p>
+            
         </div>
     );
 };
