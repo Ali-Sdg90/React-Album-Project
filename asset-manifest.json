@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/react-album-project/static/css/main.2fe59d10.css",
+    "main.js": "/react-album-project/static/js/main.2ae23ab7.js",
+    "static/media/login-background.jpeg": "/react-album-project/static/media/login-background.b96f3254a48ace246b42.jpeg",
+    "index.html": "/react-album-project/index.html",
+    "main.2fe59d10.css.map": "/react-album-project/static/css/main.2fe59d10.css.map",
+    "main.2ae23ab7.js.map": "/react-album-project/static/js/main.2ae23ab7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2fe59d10.css",
+    "static/js/main.2ae23ab7.js"
+  ]
+}
