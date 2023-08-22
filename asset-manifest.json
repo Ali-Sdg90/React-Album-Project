@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/React-Album-Project/static/css/main.5b9e9e60.css",
-    "main.js": "/React-Album-Project/static/js/main.8c937330.js",
+    "main.css": "/React-Album-Project/static/css/main.8d14d340.css",
+    "main.js": "/React-Album-Project/static/js/main.c5ee96c1.js",
     "static/media/login-background.jpeg": "/React-Album-Project/static/media/login-background.b96f3254a48ace246b42.jpeg",
     "index.html": "/React-Album-Project/index.html",
-    "main.5b9e9e60.css.map": "/React-Album-Project/static/css/main.5b9e9e60.css.map",
-    "main.8c937330.js.map": "/React-Album-Project/static/js/main.8c937330.js.map"
+    "main.8d14d340.css.map": "/React-Album-Project/static/css/main.8d14d340.css.map",
+    "main.c5ee96c1.js.map": "/React-Album-Project/static/js/main.c5ee96c1.js.map"
   },
   "entrypoints": [
-    "static/css/main.5b9e9e60.css",
-    "static/js/main.8c937330.js"
+    "static/css/main.8d14d340.css",
+    "static/js/main.c5ee96c1.js"
   ]
 }
