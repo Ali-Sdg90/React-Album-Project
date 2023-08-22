@@ -3,8 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background:
-        url("../../imgs/login-background.jpeg");
+    background: url("../../imgs/login-background.jpeg");
     background-size: 300px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,11 +13,11 @@
 .formContainer {
     width: fit-content;
     padding: 62.5px;
-    padding-bottom: 25px;
-    margin: 62.5px;
+    padding: 50px;
+    padding-bottom: 35px;
     border-radius: 12.5px;
     height: fit-content;
-    background: linear-gradient(rgb(211, 211, 211),rgb(219, 219, 219));
+    background: linear-gradient(rgb(211, 211, 211), rgb(219, 219, 219));
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -92,6 +91,35 @@
     gap: 25px;
 }
 
+.formButtones > div {
+    /* border: 1px solid red; */
+    width: 100%;
+    text-align: center;
+    color: black;
+}
+
+.formButtones > div p {
+    background-color: rgb(219, 219, 219);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    color: rgb(85, 85, 85);
+}
+
+.formButtones hr {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 15px;
+    z-index: 1;
+}
+
 .formButtones button {
     font-size: 62.5px;
     font-family: sans-serif;
@@ -126,7 +154,7 @@
     background: #11407d;
 }
 
-.formButtones button:nth-child(2) {
+.formButtones button:nth-child(3) {
     background: #185cb6
         url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
         no-repeat;
@@ -135,7 +163,7 @@
     padding-left: 62.5px;
 }
 
-.formButtones button:nth-child(2):hover {
+.formButtones button:nth-child(3):hover {
     background: #13488f
         url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
         no-repeat;
@@ -144,7 +172,7 @@
     padding-left: 62.5px;
 }
 
-.formButtones button:nth-child(2):active {
+.formButtones button:nth-child(3):active {
     background: #11407d
         url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
         no-repeat;

@@ -58,7 +58,7 @@ const Auth = ({ data, method }) => {
         try {
             signOut(auth);
             console.log("Logout");
-            navigate("/");
+            navigate("/React-Album-Project");
         } catch (err) {
             console.error(err);
         }

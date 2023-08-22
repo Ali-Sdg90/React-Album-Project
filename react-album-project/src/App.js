@@ -55,7 +55,7 @@ const App = () => {
     useEffect(() => {
         console.log("=>", loginInfo.email);
         if (loginInfo.email) {
-            navigate("/album");
+            navigate("/React-Album-Project/album");
         }
     }, [loginInfo]);
 
@@ -82,8 +82,9 @@ const App = () => {
                 <Auth method={"reload"} />
                 {/* <Login /> */}
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/album" element={<Album />} />
+                    <Route path="/React-Album-Project/" element={<Login />} />
+                    <Route path="/React-Album-Project/*" element={<Login />} />
+                    <Route path="/React-Album-Project/album" element={<Album />} />
                 </Routes>
             </AppContext.Provider>
         </div>

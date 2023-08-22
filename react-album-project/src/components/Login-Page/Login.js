@@ -107,6 +107,10 @@ const Login = () => {
                 <br></br>
                 <div className={Styles.formButtones}>
                     <button onClick={submitHandler}>Login</button>
+                    <div>
+                        <hr></hr>
+                        <p>OR</p>
+                    </div>
                     <button
                         onClick={(event) => {
                             event.preventDefault();
@@ -115,14 +119,14 @@ const Login = () => {
                     >
                         Login With Google
                     </button>
-                    <button
+                    {/* <button
                         onClick={(event) => {
                             event.preventDefault();
                             setAllowAuth("logout");
                         }}
                     >
                         Logout
-                    </button>
+                    </button> */}
                 </div>
             </form>
             {allowAuth.length ? <Auth data={data} method={allowAuth} /> : ""}
