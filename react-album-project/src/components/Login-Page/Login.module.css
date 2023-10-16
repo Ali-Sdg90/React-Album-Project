@@ -154,7 +154,7 @@
     background: #11407d;
 }
 
-.formButtones button:nth-child(3) {
+.formButtones .loginWgmail {
     background: #185cb6
         url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
         no-repeat;
@@ -163,7 +163,7 @@
     padding-left: 62.5px;
 }
 
-.formButtones button:nth-child(3):hover {
+.formButtones .loginWgmail:hover {
     background: #13488f
         url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
         no-repeat;
@@ -172,7 +172,7 @@
     padding-left: 62.5px;
 }
 
-.formButtones button:nth-child(3):active {
+.formButtones .loginWgmail:active {
     background: #11407d
         url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/882px-Google_%22G%22_Logo.svg.png")
         no-repeat;
