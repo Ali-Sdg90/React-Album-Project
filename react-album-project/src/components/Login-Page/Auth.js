@@ -12,19 +12,26 @@ import { AppContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 const Auth = ({ data, method }) => {
-    const { setLoginInfo } = useContext(AppContext);
+    const { setLoginInfo, setDoLogin, doLogin } = useContext(AppContext);
+
+    console.log("1=>", doLogin);
 
     useEffect(() => {
         console.log("in Auth");
         const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (doLogin) {
+                console.log("INSIDE", user);
+            }
             if (user) {
-                console.log("CHANGE EMAIL");
-                setLoginInfo(user);
+                console.log("CHANGE EMAIL", user.email);
+                if (doLogin) {
+                    setLoginInfo(user);
+                }
             }
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [doLogin]);
 
     const signIn = async () => {
         try {
@@ -68,12 +75,15 @@ const Auth = ({ data, method }) => {
         switch (method) {
             case "email":
                 signIn();
+                setDoLogin(true);
                 break;
             case "gmail":
                 signInWGoogle();
+                setDoLogin(true);
                 break;
             case "logout":
                 signOutHandler();
+                setDoLogin(false);
                 break;
             default:
                 break;

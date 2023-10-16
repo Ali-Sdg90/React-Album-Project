@@ -21,6 +21,8 @@ const App = () => {
     const [showLightBox, setShowLightBox] = useState(false);
     const [currentImageIndex, setCurrentIndex] = useState(0);
 
+    const [doLogin, setDoLogin] = useState(false);
+
     const [loginInfo, setLoginInfo] = useState({});
 
     const imgCollectionRef = collection(db, collectionName);
@@ -46,7 +48,7 @@ const App = () => {
                 setShowLightBox(false);
             }
         });
-        
+
         getImgList();
     }, []);
 
@@ -69,10 +71,10 @@ const App = () => {
                     setCurrentIndex,
                     loginInfo,
                     setLoginInfo,
+                    doLogin,
+                    setDoLogin,
                 }}
             >
-                {/* <h1>Hello</h1> */}
-
                 {/* {imgList.map((imgInfo) => (
                     <Card imgInfo={imgInfo} />
                 ))} */}
@@ -84,7 +86,10 @@ const App = () => {
                 <Routes>
                     <Route path="/React-Album-Project/" element={<Login />} />
                     <Route path="/React-Album-Project/*" element={<Login />} />
-                    <Route path="/React-Album-Project/album" element={<Album />} />
+                    <Route
+                        path="/React-Album-Project/album"
+                        element={<Album />}
+                    />
                 </Routes>
             </AppContext.Provider>
         </div>

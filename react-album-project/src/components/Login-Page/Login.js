@@ -1,11 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import validData from "./validData";
 
 import Styles from "./Login.module.css";
 import { Link } from "react-router-dom";
 import Auth from "./Auth";
 
+import { AppContext } from "../../App";
+
+import { auth } from "../../config/firebase";
+
+import { onAuthStateChanged } from "firebase/auth";
+
 const Login = () => {
+    const { setDoLogin } = useContext(AppContext);
+
+    setDoLogin(false);
+
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -14,6 +24,8 @@ const Login = () => {
     const [errors, setErrors] = useState({});
     const [isFocused, setIsFocused] = useState({});
     const [allowAuth, setAllowAuth] = useState("");
+
+    const [prevEmail, setPrevEmail] = useState("");
 
     useEffect(() => {
         setErrors(validData(data, "login"));
@@ -42,11 +54,13 @@ const Login = () => {
         event.preventDefault();
         if (!Object.keys(errors).length) {
             console.log("OK");
+            setDoLogin(true);
             setAllowAuth("email");
             // console.log(data);
         } else {
             console.log("Error");
             setAllowAuth("");
+            setDoLogin(false);
             setIsFocused({
                 email: true,
                 password: true,
@@ -59,6 +73,17 @@ const Login = () => {
             setAllowAuth("");
         }
     }, [Object.keys(errors).length]);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("is it working?", user.email);
+                setPrevEmail(user.email);
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     return (
         <div className={Styles.container}>
@@ -107,11 +132,25 @@ const Login = () => {
                 <br></br>
                 <div className={Styles.formButtones}>
                     <button onClick={submitHandler}>Login</button>
+
+                    {prevEmail && (
+                        <button
+                            onClick={(event) => {
+                                event.preventDefault();
+                                setDoLogin(true);
+                            }}
+                        >
+                            Continue with {prevEmail}
+                        </button>
+                    )}
+
                     <div>
                         <hr></hr>
                         <p>OR</p>
                     </div>
+
                     <button
+                        className={Styles.loginWgmail}
                         onClick={(event) => {
                             event.preventDefault();
                             setAllowAuth("gmail");
@@ -119,14 +158,15 @@ const Login = () => {
                     >
                         Login With Google
                     </button>
-                    {/* <button
+
+                    <button
                         onClick={(event) => {
                             event.preventDefault();
                             setAllowAuth("logout");
                         }}
                     >
                         Logout
-                    </button> */}
+                    </button>
                 </div>
             </form>
             {allowAuth.length ? <Auth data={data} method={allowAuth} /> : ""}
