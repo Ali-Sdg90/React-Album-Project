@@ -15,6 +15,9 @@ import "./App.css";
 import Auth from "./components/Login-Page/Auth";
 import Card from "./components/Album-Page/Card";
 
+import urlEncoder from "./helper/urlEncoder";
+import urlDecoder from "./helper/urlDecoder";
+
 import { db } from "./config/firebase";
 import Album from "./components/Album-Page/Album";
 import Login from "./components/Login-Page/Login";
@@ -95,8 +98,16 @@ const App = () => {
                 console.log(loginInfo);
 
                 console.log("SEND");
-                // window.location.href = "http://localhost:5000/";
-                // window.location.href = "https://ali-sdg9093-todo-app.web.app/";
+
+                const encryptedEmailAdrs = urlEncoder(loginInfo.email);
+
+                console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
+
+                console.log("encryptedURL:", encryptedEmailAdrs);
+
+                window.location.href =
+                    "http://localhost:5000/" + encryptedEmailAdrs;
+                // window.location.href = "https://ali-sdg9093-todo-app.web.app/" + encryptedEmailAdrs;
             } else {
                 navigate("/React-Album-Project/album");
             }
