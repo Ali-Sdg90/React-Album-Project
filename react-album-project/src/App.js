@@ -1,4 +1,13 @@
-import { collection, getDocs } from "firebase/firestore";
+import {
+    collection,
+    query,
+    where,
+    getDocs,
+    doc,
+    setDoc,
+    updateDoc,
+} from "firebase/firestore";
+
 import React, { useEffect, useState } from "react";
 import Lightbox from "./components/Lightbox";
 
@@ -13,54 +22,80 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 export const AppContext = React.createContext();
 
-const collectionName = "Images";
+const accountsCollectionRef = collection(db, "Accounts");
 
 const App = () => {
-    const [imgList, setImgList] = useState([]);
-
     const [showLightBox, setShowLightBox] = useState(false);
     const [currentImageIndex, setCurrentIndex] = useState(0);
 
     const [loginInfo, setLoginInfo] = useState({});
 
-    const imgCollectionRef = collection(db, collectionName);
+    const imgCollectionRef = collection(db, "Accounts");
 
     const connectToTodoApp = window.location.href.endsWith("todoApp");
     console.log("connect To TodoApp: ", connectToTodoApp);
 
-    useEffect(() => {
-        const getImgList = async () => {
-            console.log("in function");
-            try {
-                const data = await getDocs(imgCollectionRef);
-                const filteredData = data.docs.map((doc) => ({
-                    ...doc.data(),
-                    id: doc.id,
-                }));
-                setImgList(filteredData);
-                console.log("filteredData:", filteredData);
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                setShowLightBox(false);
-            }
-        });
-
-        getImgList();
-    }, []);
+    // useEffect(() => {
+    //     document.addEventListener("keydown", (event) => {
+    //         if (event.key === "Escape") {
+    //             setShowLightBox(false);
+    //         }
+    //     });
+    // }, []);
 
     const navigate = useNavigate();
+
+    const getImgList = async (loginInfo) => {
+        try {
+            // check if email is new or not
+            const accountsQuery = query(
+                accountsCollectionRef,
+                where("email", "==", loginInfo.email)
+            );
+            const accountsSnapshot = await getDocs(accountsQuery);
+
+            if (accountsSnapshot.size === 0) {
+                const newAccountData = {
+                    email: loginInfo.email,
+                    UserInfo: loginInfo,
+                };
+
+                // Use the email as the document ID
+                const newAccountRef = doc(
+                    accountsCollectionRef,
+                    loginInfo.email
+                );
+
+                await setDoc(newAccountRef, newAccountData);
+            }
+
+            const data = await getDocs(imgCollectionRef);
+            const filteredData = data.docs.map((doc) => ({
+                ...doc.data(),
+                id: doc.id,
+            }));
+
+            if (filteredData.length > 0) {
+                const firstDocumentRef = doc(
+                    imgCollectionRef,
+                    filteredData[0].id
+                );
+                await updateDoc(firstDocumentRef, { UserInfo: loginInfo });
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     useEffect(() => {
         console.log("=>", loginInfo.email);
         if (loginInfo.email) {
             if (connectToTodoApp) {
+                getImgList(JSON.parse(JSON.stringify(loginInfo)));
+                console.log(loginInfo);
+
                 console.log("SEND");
-                window.location.href = "http://localhost:5000/";
+                // window.location.href = "http://localhost:5000/";
                 // window.location.href = "https://ali-sdg9093-todo-app.web.app/";
             } else {
                 navigate("/React-Album-Project/album");
@@ -82,20 +117,12 @@ const App = () => {
                     connectToTodoApp,
                 }}
             >
-                {/* <h1>Hello</h1> */}
-
-                {/* {imgList.map((imgInfo) => (
-                    <Card imgInfo={imgInfo} />
-                ))} */}
-                {/* {console.log("O=>", imgList)} */}
                 {/* <Lightbox /> */}
-                {/* <Album /> */}
-                <Auth method={"reload"} />
                 {/* <Login /> */}
+                {/* <Album /> */}
+
+                <Auth method={"reload"} />
                 <Routes>
-                    {/* <Route path="/React-Album-Project/" element={<Login />} />
-                    <Route path="/React-Album-Project/*" element={<Login />} />
-                    <Route path="/React-Album-Project/album" element={<Album />} /> */}
                     <Route path="/React-login-page/" element={<Login />} />
                     <Route path="/React-login-page/*" element={<Login />} />
                     <Route path="/React-login-page/album" element={<Album />} />
