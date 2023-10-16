@@ -54,11 +54,18 @@ const Auth = ({ data, method }) => {
 
     const navigate = useNavigate();
 
+    const currentURL = window.location.href;
+    const connectToTodoApp = currentURL.endsWith("todoApp");
+
     const signOutHandler = () => {
         try {
             signOut(auth);
             console.log("Logout");
-            navigate("/React-Album-Project");
+            if (connectToTodoApp) {
+                navigate("/React-login-page/todoApp");
+            } else {
+                navigate("/React-login-page");
+            }
         } catch (err) {
             console.error(err);
         }

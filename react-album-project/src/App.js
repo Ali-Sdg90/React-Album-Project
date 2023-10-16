@@ -25,6 +25,9 @@ const App = () => {
 
     const imgCollectionRef = collection(db, collectionName);
 
+    const connectToTodoApp = window.location.href.endsWith("todoApp");
+    console.log("connect To TodoApp: ", connectToTodoApp);
+
     useEffect(() => {
         const getImgList = async () => {
             console.log("in function");
@@ -46,7 +49,7 @@ const App = () => {
                 setShowLightBox(false);
             }
         });
-        
+
         getImgList();
     }, []);
 
@@ -55,7 +58,14 @@ const App = () => {
     useEffect(() => {
         console.log("=>", loginInfo.email);
         if (loginInfo.email) {
-            navigate("/React-Album-Project/album");
+            if (connectToTodoApp) {
+                console.log("SEND");
+                window.location.href = "http://localhost:5000/";
+                // window.location.href = "https://ali-sdg9093-todo-app.web.app/";
+            } else {
+                navigate("/React-Album-Project/album");
+            }
+            // console.log("login info:", loginInfo);
         }
     }, [loginInfo]);
 
@@ -69,6 +79,7 @@ const App = () => {
                     setCurrentIndex,
                     loginInfo,
                     setLoginInfo,
+                    connectToTodoApp,
                 }}
             >
                 {/* <h1>Hello</h1> */}
@@ -76,15 +87,18 @@ const App = () => {
                 {/* {imgList.map((imgInfo) => (
                     <Card imgInfo={imgInfo} />
                 ))} */}
-                {console.log("O=>", imgList)}
+                {/* {console.log("O=>", imgList)} */}
                 {/* <Lightbox /> */}
                 {/* <Album /> */}
                 <Auth method={"reload"} />
                 {/* <Login /> */}
                 <Routes>
-                    <Route path="/React-Album-Project/" element={<Login />} />
+                    {/* <Route path="/React-Album-Project/" element={<Login />} />
                     <Route path="/React-Album-Project/*" element={<Login />} />
-                    <Route path="/React-Album-Project/album" element={<Album />} />
+                    <Route path="/React-Album-Project/album" element={<Album />} /> */}
+                    <Route path="/React-login-page/" element={<Login />} />
+                    <Route path="/React-login-page/*" element={<Login />} />
+                    <Route path="/React-login-page/album" element={<Album />} />
                 </Routes>
             </AppContext.Provider>
         </div>
