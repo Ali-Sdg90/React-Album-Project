@@ -61,6 +61,7 @@ const App = () => {
                 const newAccountData = {
                     email: loginInfo.email,
                     UserInfo: loginInfo,
+                    UserTodo: [], // want array
                 };
 
                 // Use the email as the document ID
@@ -75,6 +76,7 @@ const App = () => {
             const data = await getDocs(imgCollectionRef);
             const filteredData = data.docs.map((doc) => ({
                 ...doc.data(),
+                // UserTodos: [],
                 id: doc.id,
             }));
 
@@ -94,19 +96,23 @@ const App = () => {
         console.log("=>", loginInfo.email);
         if (loginInfo.email) {
             if (connectToTodoApp) {
-                getImgList(JSON.parse(JSON.stringify(loginInfo)));
-                console.log(loginInfo);
+                getImgList(JSON.parse(JSON.stringify(loginInfo))).then(() => {
+                    console.log(loginInfo);
 
-                console.log("SEND");
+                    console.log("SEND");
 
-                const encryptedEmailAdrs = urlEncoder(loginInfo.email);
+                    const encryptedEmailAdrs = urlEncoder(loginInfo.email);
 
-                console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
+                    console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
+                    console.log("encryptedURL:", encryptedEmailAdrs);
 
-                console.log("encryptedURL:", encryptedEmailAdrs);
+                    window.location.href =
+                        "http://localhost:5000/" + encryptedEmailAdrs;
+                });
 
-                window.location.href =
-                    "http://localhost:5000/" + encryptedEmailAdrs;
+                // window.location.href =
+                // "http://localhost:5000/" + encryptedEmailAdrs;
+
                 // window.location.href = "https://ali-sdg9093-todo-app.web.app/" + encryptedEmailAdrs;
             } else {
                 navigate("/React-Album-Project/album");
