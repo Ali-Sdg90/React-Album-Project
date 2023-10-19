@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { auth, googleProvider } from "../../config/firebase";
+import { auth, googleProvider } from "../config/firebase";
 import {
     createUserWithEmailAndPassword,
     signInWithPopup,
@@ -8,15 +8,14 @@ import {
     signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { AppContext } from "../../App";
-
-import { useNavigate } from "react-router-dom";
+import { AppContext } from "../App";
 
 const Auth = ({ data, method }) => {
-    const { setLoginInfo, encryptedEmailAdrs } = useContext(AppContext);
+    const { setLoginInfo } = useContext(AppContext);
 
     useEffect(() => {
         console.log("in Auth");
+
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 console.log("CHANGE EMAIL");
@@ -75,7 +74,7 @@ const Auth = ({ data, method }) => {
     };
 
     useEffect(() => {
-        console.log("-------->", method);
+        console.log("--->", method);
         switch (method) {
             case "email":
                 signIn();

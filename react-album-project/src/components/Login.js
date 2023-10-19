@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import validData from "./validData";
 
 import Styles from "./Login.module.css";
-import { Link } from "react-router-dom";
 import Auth from "./Auth";
 
-import { AppContext } from "../../App";
+import { AppContext } from "../App";
 
 const Login = () => {
     const [data, setData] = useState({
@@ -21,21 +20,13 @@ const Login = () => {
 
     useEffect(() => {
         setErrors(validData(data, "login"));
-        // console.log(errors);
     }, [data, isFocused]);
 
     const changeHandler = (event) => {
-        if (event.target.name === "acceptTAS") {
-            setData({
-                ...data,
-                [event.target.name]: event.target.checked,
-            });
-        } else {
-            setData({
-                ...data,
-                [event.target.name]: event.target.value,
-            });
-        }
+        setData({
+            ...data,
+            [event.target.name]: event.target.value,
+        });
     };
 
     const focusHandler = (event) => {
@@ -44,13 +35,14 @@ const Login = () => {
 
     const submitHandler = (event) => {
         event.preventDefault();
+
         if (!Object.keys(errors).length) {
             console.log("OK");
             setAllowAuth("email");
-            // console.log(data);
         } else {
             console.log("Error");
             setAllowAuth("");
+
             setIsFocused({
                 email: true,
                 password: true,
@@ -108,13 +100,17 @@ const Login = () => {
                         <span>{errors.password}</span>
                     )}
                 </div>
+
                 <br></br>
+                
                 <div className={Styles.formButtones}>
                     <button onClick={submitHandler}>Login</button>
+
                     <div>
                         <hr></hr>
                         <p>OR</p>
                     </div>
+
                     <button
                         onClick={(event) => {
                             event.preventDefault();
@@ -123,6 +119,7 @@ const Login = () => {
                     >
                         Login With Google
                     </button>
+
                     {loginInfo.email ? (
                         <div className={Styles.withAccountBtns}>
                             <button
@@ -136,6 +133,7 @@ const Login = () => {
                             >
                                 <div>Continue with {loginInfo.email}</div>
                             </button>
+
                             <button
                                 onClick={(event) => {
                                     event.preventDefault();
@@ -150,6 +148,7 @@ const Login = () => {
                     )}
                 </div>
             </form>
+
             {allowAuth.length ? <Auth data={data} method={allowAuth} /> : ""}
         </div>
     );

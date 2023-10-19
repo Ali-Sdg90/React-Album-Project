@@ -9,19 +9,15 @@ import {
 } from "firebase/firestore";
 
 import React, { useEffect, useState } from "react";
-import Lightbox from "./components/Lightbox";
 
 import "./App.css";
-import Auth from "./components/Login-Page/Auth";
-import Card from "./components/Album-Page/Card";
-
+import Auth from "./components/Auth";
+import Login from "./components/Login";
 import urlEncoder from "./helper/urlEncoder";
 import urlDecoder from "./helper/urlDecoder";
 
 import { db } from "./config/firebase";
-import Album from "./components/Album-Page/Album";
-import Login from "./components/Login-Page/Login";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 export const AppContext = React.createContext();
 
@@ -30,26 +26,12 @@ const accountsCollectionRef = collection(db, "Accounts");
 document.title = "React login page";
 
 const App = () => {
-    // const [showLightBox, setShowLightBox] = useState(false);
-    // const [currentImageIndex, setCurrentIndex] = useState(0);
     const [encryptedEmailAdrs, setEncryptedEmailAdrs] = useState("");
-
     const [loginInfo, setLoginInfo] = useState({});
 
     const imgCollectionRef = collection(db, "Accounts");
 
-    const connectToTodoApp = window.location.href.endsWith("todoApp");
-    console.log("connect To TodoApp: ", connectToTodoApp);
-
-    // useEffect(() => {
-    //     document.addEventListener("keydown", (event) => {
-    //         if (event.key === "Escape") {
-    //             setShowLightBox(false);
-    //         }
-    //     });
-    // }, []);
-
-    const getImgList = async (loginInfo) => {
+    const validEmail = async (loginInfo) => {
         try {
             // check if email is new or not
             const accountsQuery = query(
@@ -62,7 +44,7 @@ const App = () => {
                 const newAccountData = {
                     email: loginInfo.email,
                     UserInfo: loginInfo,
-                    UserTodo: [], // want array
+                    UserTodo: [],
                 };
 
                 // Use the email as the document ID
@@ -77,7 +59,6 @@ const App = () => {
             const data = await getDocs(imgCollectionRef);
             const filteredData = data.docs.map((doc) => ({
                 ...doc.data(),
-                // UserTodos: [],
                 id: doc.id,
             }));
 
@@ -96,20 +77,11 @@ const App = () => {
     useEffect(() => {
         console.log("=>", loginInfo.email);
         if (loginInfo.email) {
-            getImgList(JSON.parse(JSON.stringify(loginInfo))).then(() => {
-                console.log(loginInfo);
-
+            validEmail(JSON.parse(JSON.stringify(loginInfo))).then(() => {
                 setEncryptedEmailAdrs(urlEncoder(loginInfo.email));
 
                 console.log("Ready to SEND");
             });
-
-            // window.location.href =
-            // "http://localhost:5000/" + encryptedEmailAdrs;
-
-            // window.location.href = "https://ali-sdg9093-todo-app.web.app/" + encryptedEmailAdrs;
-
-            // console.log("login info:", loginInfo);
         }
     }, [loginInfo]);
 
@@ -120,31 +92,19 @@ const App = () => {
         }
     }, [encryptedEmailAdrs]);
 
-    
-
     return (
         <div>
             <AppContext.Provider
                 value={{
-                    // showLightBox,
-                    // setShowLightBox,
-                    // currentImageIndex,
-                    // setCurrentIndex,
                     loginInfo,
                     setLoginInfo,
-                    connectToTodoApp,
                     encryptedEmailAdrs,
                 }}
             >
-                {/* <Lightbox /> */}
-                {/* <Login /> */}
-                {/* <Album /> */}
-
                 <Auth method={"reload"} />
                 <Routes>
                     <Route path="/React-login-page/" element={<Login />} />
                     <Route path="/React-login-page/*" element={<Login />} />
-                    <Route path="/React-login-page/album" element={<Album />} />
                 </Routes>
             </AppContext.Provider>
         </div>

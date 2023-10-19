@@ -7,8 +7,6 @@ import App from "./App";
 import "./index.css";
 import axios from "axios";
 
-import ErrorBoundary from "./ErrorBoundary";
-
 axios.interceptors.request.use(
     (request) => {
         console.log(`A "${request.method}" request sent to ${request.url}`);
@@ -33,9 +31,7 @@ axios.interceptors.response.use(
 
 ReactDOM.render(
     <BrowserRouter>
-        <ErrorBoundary>
-            <App />
-        </ErrorBoundary>
+        <App />
     </BrowserRouter>,
     document.getElementById("root")
 );
