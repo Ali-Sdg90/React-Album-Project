@@ -28,6 +28,7 @@ document.title = "React login page";
 const App = () => {
     const [encryptedEmailAdrs, setEncryptedEmailAdrs] = useState("");
     const [loginInfo, setLoginInfo] = useState({});
+    const [allowRedirect, setAllowRedirect] = useState(false);
 
     const imgCollectionRef = collection(db, "Accounts");
 
@@ -89,6 +90,12 @@ const App = () => {
         if (encryptedEmailAdrs) {
             console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
             console.log("encryptedURL:", encryptedEmailAdrs);
+            console.log("AllowRedirect:", allowRedirect);
+            if (allowRedirect) {
+                console.log("Redirect To Todo App!!!");
+                window.location.href =
+                    "http://localhost:5000/" + encryptedEmailAdrs;
+            }
         }
     }, [encryptedEmailAdrs]);
 
@@ -99,6 +106,7 @@ const App = () => {
                     loginInfo,
                     setLoginInfo,
                     encryptedEmailAdrs,
+                    setAllowRedirect,
                 }}
             >
                 <Auth method={"reload"} />

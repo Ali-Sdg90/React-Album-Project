@@ -11,7 +11,7 @@ import {
 import { AppContext } from "../App";
 
 const Auth = ({ data, method }) => {
-    const { setLoginInfo } = useContext(AppContext);
+    const { setLoginInfo, setAllowRedirect } = useContext(AppContext);
 
     useEffect(() => {
         console.log("in Auth");
@@ -30,6 +30,7 @@ const Auth = ({ data, method }) => {
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
             console.log("Login to existing account");
+            setAllowRedirect(true);
         } catch (signInError) {
             if (signInError.code === "auth/user-not-found") {
                 try {
@@ -39,6 +40,7 @@ const Auth = ({ data, method }) => {
                         data.password
                     );
                     console.log("Created new account and login to it");
+                    setAllowRedirect(true);
                 } catch (createError) {
                     console.error("Error in create new account:", createError);
                 }
@@ -54,6 +56,7 @@ const Auth = ({ data, method }) => {
             console.log("Login W Google");
             // window.location.href =
             //     "http://localhost:5000/" + encryptedEmailAdrs;
+            setAllowRedirect(true);
         } catch (err) {
             if (err.code === "auth/popup-closed-by-user") {
                 console.log("User closed the popup");
@@ -67,6 +70,7 @@ const Auth = ({ data, method }) => {
         try {
             signOut(auth);
             console.log("Logout");
+            setAllowRedirect(false);
             window.location.reload();
         } catch (err) {
             console.error(err);
