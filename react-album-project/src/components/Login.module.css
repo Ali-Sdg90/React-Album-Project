@@ -3,11 +3,8 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url("../imgs/login-background.jpeg");
-    background-size: 300px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100vw;
+    width: 100%;
+    transform: scale(0.95);
 }
 
 .formContainer {
@@ -165,7 +162,7 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .formButtones button:nth-child(3) {

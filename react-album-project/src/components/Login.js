@@ -120,6 +120,15 @@ const Login = () => {
                         Login With Google
                     </button>
 
+                    <button
+                        onClick={(event) => {
+                            event.preventDefault();
+                            setAllowAuth("gmail");
+                        }}
+                    >
+                        Login Anonymously
+                    </button>
+
                     {loginInfo.email ? (
                         <div className={Styles.withAccountBtns}>
                             <button
@@ -144,7 +153,8 @@ const Login = () => {
                             </button>
                         </div>
                     ) : (
-                        <div></div>
+                        // <div></div>
+                        <></>
                     )}
                 </div>
             </form>
