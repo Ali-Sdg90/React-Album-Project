@@ -5,6 +5,7 @@ import {
     signInWithPopup,
     onAuthStateChanged,
     signOut,
+    signInWithEmailAndPassword,
 } from "firebase/auth";
 
 import { AppContext } from "../../App";
@@ -12,7 +13,7 @@ import { AppContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 const Auth = ({ data, method }) => {
-    const { setLoginInfo } = useContext(AppContext);
+    const { setLoginInfo, encryptedEmailAdrs } = useContext(AppContext);
 
     useEffect(() => {
         console.log("in Auth");
@@ -28,14 +29,24 @@ const Auth = ({ data, method }) => {
 
     const signIn = async () => {
         try {
-            await createUserWithEmailAndPassword(
-                auth,
-                data.email,
-                data.password
-            );
-            console.log("Login");
-        } catch (err) {
-            console.error(err);
+            await signInWithEmailAndPassword(auth, data.email, data.password);
+            console.log("Login to existing account");
+
+        } catch (signInError) {
+            if (signInError.code === "auth/user-not-found") {
+                try {
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        data.email,
+                        data.password
+                    );
+                    console.log("Created new account and login to it");
+                } catch (createError) {
+                    console.error("Error in create new account:", createError);
+                }
+            } else {
+                console.error("Error in login:", signInError);
+            }
         }
     };
 
@@ -43,6 +54,8 @@ const Auth = ({ data, method }) => {
         try {
             await signInWithPopup(auth, googleProvider);
             console.log("Login W Google");
+            // window.location.href =
+            //     "http://localhost:5000/" + encryptedEmailAdrs;
         } catch (err) {
             if (err.code === "auth/popup-closed-by-user") {
                 console.log("User closed the popup");
@@ -61,17 +74,14 @@ const Auth = ({ data, method }) => {
         try {
             signOut(auth);
             console.log("Logout");
-            if (connectToTodoApp) {
-                navigate("/React-login-page/todoApp");
-            } else {
-                navigate("/React-login-page");
-            }
+            window.location.reload();
         } catch (err) {
             console.error(err);
         }
     };
 
     useEffect(() => {
+        console.log("-------->", method);
         switch (method) {
             case "email":
                 signIn();

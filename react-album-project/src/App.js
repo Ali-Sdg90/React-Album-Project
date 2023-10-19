@@ -27,9 +27,12 @@ export const AppContext = React.createContext();
 
 const accountsCollectionRef = collection(db, "Accounts");
 
+document.title = "React login page";
+
 const App = () => {
-    const [showLightBox, setShowLightBox] = useState(false);
-    const [currentImageIndex, setCurrentIndex] = useState(0);
+    // const [showLightBox, setShowLightBox] = useState(false);
+    // const [currentImageIndex, setCurrentIndex] = useState(0);
+    const [encryptedEmailAdrs, setEncryptedEmailAdrs] = useState("");
 
     const [loginInfo, setLoginInfo] = useState({});
 
@@ -99,15 +102,9 @@ const App = () => {
                 getImgList(JSON.parse(JSON.stringify(loginInfo))).then(() => {
                     console.log(loginInfo);
 
-                    console.log("SEND");
+                    setEncryptedEmailAdrs(urlEncoder(loginInfo.email));
 
-                    const encryptedEmailAdrs = urlEncoder(loginInfo.email);
-
-                    console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
-                    console.log("encryptedURL:", encryptedEmailAdrs);
-
-                    window.location.href =
-                        "http://localhost:5000/" + encryptedEmailAdrs;
+                    console.log("Ready to SEND");
                 });
 
                 // window.location.href =
@@ -121,17 +118,25 @@ const App = () => {
         }
     }, [loginInfo]);
 
+    useEffect(() => {
+        if (encryptedEmailAdrs) {
+            console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
+            console.log("encryptedURL:", encryptedEmailAdrs);
+        }
+    }, [encryptedEmailAdrs]);
+
     return (
         <div>
             <AppContext.Provider
                 value={{
-                    showLightBox,
-                    setShowLightBox,
-                    currentImageIndex,
-                    setCurrentIndex,
+                    // showLightBox,
+                    // setShowLightBox,
+                    // currentImageIndex,
+                    // setCurrentIndex,
                     loginInfo,
                     setLoginInfo,
                     connectToTodoApp,
+                    encryptedEmailAdrs,
                 }}
             >
                 {/* <Lightbox /> */}

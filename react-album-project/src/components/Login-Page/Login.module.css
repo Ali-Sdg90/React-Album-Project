@@ -12,9 +12,8 @@
 
 .formContainer {
     width: fit-content;
-    padding: 62.5px;
-    padding: 50px;
-    padding-bottom: 35px;
+    padding: 40px;
+    padding-bottom: 20px;
     border-radius: 12.5px;
     height: fit-content;
     background: linear-gradient(rgb(211, 211, 211), rgb(219, 219, 219));
@@ -88,7 +87,7 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;
 }
 
 .formButtones > div {
@@ -130,8 +129,8 @@
     align-items: center;
     cursor: pointer;
     box-shadow: 0 3.75px 12.5px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 0.1875s, transform 0.1875s, letter-spacing 0.1875s,
-        background 0.1875s;
+    transition: box-shadow 0.19s, transform 0.19s, letter-spacing 0.19s,
+        background 0.19s;
     width: 400px;
     border: 1.25px solid black;
     letter-spacing: 0.875px;
@@ -146,12 +145,27 @@
     cursor: pointer;
 }
 
-.formButtones button:nth-child(1):hover {
+.formButtones button:hover {
     background: #13488f;
 }
 
-.formButtones button:nth-child(1):active {
+.formButtones button:active {
     background: #11407d;
+}
+
+.formButtones button div {
+    width: 400px;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.formButtones .withAccountBtns {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .formButtones button:nth-child(3) {
