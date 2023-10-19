@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 import { getFirestore } from "firebase/firestore";
@@ -34,9 +33,14 @@ if (connectToTodoApp) {
 
 const app = initializeApp(firebaseConfig);
 
-// const analytics = getAnalytics(app);
+// try {
+//     console.log(getFirestore(app));
+//     console.log("ok");
+// } catch (error) {
+//     console.log("ERROR!!!!!");
+// }
+
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export const db = getFirestore(app);
-

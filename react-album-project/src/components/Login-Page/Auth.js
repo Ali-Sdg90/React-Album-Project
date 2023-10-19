@@ -31,7 +31,6 @@ const Auth = ({ data, method }) => {
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
             console.log("Login to existing account");
-
         } catch (signInError) {
             if (signInError.code === "auth/user-not-found") {
                 try {
@@ -64,11 +63,6 @@ const Auth = ({ data, method }) => {
             }
         }
     };
-
-    const navigate = useNavigate();
-
-    const currentURL = window.location.href;
-    const connectToTodoApp = currentURL.endsWith("todoApp");
 
     const signOutHandler = () => {
         try {

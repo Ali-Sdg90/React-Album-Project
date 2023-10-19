@@ -49,8 +49,6 @@ const App = () => {
     //     });
     // }, []);
 
-    const navigate = useNavigate();
-
     const getImgList = async (loginInfo) => {
         try {
             // check if email is new or not
@@ -98,22 +96,19 @@ const App = () => {
     useEffect(() => {
         console.log("=>", loginInfo.email);
         if (loginInfo.email) {
-            if (connectToTodoApp) {
-                getImgList(JSON.parse(JSON.stringify(loginInfo))).then(() => {
-                    console.log(loginInfo);
+            getImgList(JSON.parse(JSON.stringify(loginInfo))).then(() => {
+                console.log(loginInfo);
 
-                    setEncryptedEmailAdrs(urlEncoder(loginInfo.email));
+                setEncryptedEmailAdrs(urlEncoder(loginInfo.email));
 
-                    console.log("Ready to SEND");
-                });
+                console.log("Ready to SEND");
+            });
 
-                // window.location.href =
-                // "http://localhost:5000/" + encryptedEmailAdrs;
+            // window.location.href =
+            // "http://localhost:5000/" + encryptedEmailAdrs;
 
-                // window.location.href = "https://ali-sdg9093-todo-app.web.app/" + encryptedEmailAdrs;
-            } else {
-                navigate("/React-Album-Project/album");
-            }
+            // window.location.href = "https://ali-sdg9093-todo-app.web.app/" + encryptedEmailAdrs;
+
             // console.log("login info:", loginInfo);
         }
     }, [loginInfo]);
@@ -124,6 +119,8 @@ const App = () => {
             console.log("encryptedURL:", encryptedEmailAdrs);
         }
     }, [encryptedEmailAdrs]);
+
+    
 
     return (
         <div>
