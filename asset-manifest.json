@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/React-Todo-Login-Page/todoApp/static/css/main.ffcfb4bf.css",
-    "main.js": "/React-Todo-Login-Page/todoApp/static/js/main.1923fc70.js",
+    "main.js": "/React-Todo-Login-Page/todoApp/static/js/main.686193f0.js",
     "static/media/login-background.jpeg": "/React-Todo-Login-Page/todoApp/static/media/login-background.b96f3254a48ace246b42.jpeg",
     "index.html": "/React-Todo-Login-Page/todoApp/index.html",
     "main.ffcfb4bf.css.map": "/React-Todo-Login-Page/todoApp/static/css/main.ffcfb4bf.css.map",
-    "main.1923fc70.js.map": "/React-Todo-Login-Page/todoApp/static/js/main.1923fc70.js.map"
+    "main.686193f0.js.map": "/React-Todo-Login-Page/todoApp/static/js/main.686193f0.js.map"
   },
   "entrypoints": [
     "static/css/main.ffcfb4bf.css",
-    "static/js/main.1923fc70.js"
+    "static/js/main.686193f0.js"
   ]
 }
