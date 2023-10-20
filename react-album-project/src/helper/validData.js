@@ -1,4 +1,4 @@
-const validData = (data, type) => {
+const validData = (data) => {
     const errors = {};
 
     if (!data.email) {

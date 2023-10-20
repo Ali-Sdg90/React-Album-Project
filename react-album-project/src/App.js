@@ -29,6 +29,7 @@ const App = () => {
     const [encryptedEmailAdrs, setEncryptedEmailAdrs] = useState("");
     const [loginInfo, setLoginInfo] = useState({});
     const [allowRedirect, setAllowRedirect] = useState(false);
+    const [goAnonymousMode, setGoAnonymousMode] = useState(false);
 
     const imgCollectionRef = collection(db, "Accounts");
 
@@ -49,10 +50,7 @@ const App = () => {
                 };
 
                 // Use the email as the document ID
-                const newAccountRef = doc(
-                    accountsCollectionRef,
-                    loginEmail
-                );
+                const newAccountRef = doc(accountsCollectionRef, loginEmail);
 
                 await setDoc(newAccountRef, newAccountData);
             }
@@ -91,13 +89,27 @@ const App = () => {
 
     useEffect(() => {
         if (encryptedEmailAdrs) {
-            console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
             console.log("encryptedURL:", encryptedEmailAdrs);
+            console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
             console.log("AllowRedirect:", allowRedirect);
+
             if (allowRedirect) {
-                console.log("Redirect To Todo App!!!");
-                window.location.href =
-                    "http://localhost:5000/" + encryptedEmailAdrs;
+                if (
+                    window.location.href.split("/").reverse()[0] ===
+                    "goAnonymousMode"
+                ) {
+                    setGoAnonymousMode(true);
+                    
+                    if (goAnonymousMode) {
+                        console.log("Redirect To Todo App!!!");
+                        window.location.href =
+                            "http://localhost:5000/" + encryptedEmailAdrs;
+                    }
+                } else {
+                    console.log("Redirect To Todo App!!!");
+                    window.location.href =
+                        "http://localhost:5000/" + encryptedEmailAdrs;
+                }
             }
         }
     }, [encryptedEmailAdrs]);
@@ -112,7 +124,12 @@ const App = () => {
                     setAllowRedirect,
                 }}
             >
-                <Auth method={"reload"} />
+                {window.location.href.split("/").reverse()[0] ===
+                "goAnonymousMode" ? (
+                    <Auth method={"anonymously"} />
+                ) : (
+                    <Auth method={"reload"} />
+                )}
                 <Routes>
                     <Route path="/React-login-page/" element={<Login />} />
                     <Route path="/React-login-page/*" element={<Login />} />

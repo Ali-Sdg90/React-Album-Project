@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { auth, googleProvider } from "../config/firebase";
 import {
     createUserWithEmailAndPassword,
@@ -8,12 +8,14 @@ import {
     signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import Tostify from "../Tostify";
+import Tostify from "../helper/Tostify";
 
 import { AppContext } from "../App";
 
 const Auth = ({ data, method }) => {
     const { setLoginInfo, setAllowRedirect } = useContext(AppContext);
+
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         console.log("in Auth");
@@ -28,6 +30,10 @@ const Auth = ({ data, method }) => {
         return () => unsubscribe();
     }, []);
 
+    const createErrorMsg = (err) => {
+        setErrorMsg(`${err.message.split("Firebase: ")[1].split(/\n|\./)[0]}`);
+    };
+
     const signIn = async () => {
         try {
             try {
@@ -38,8 +44,10 @@ const Auth = ({ data, method }) => {
                 );
                 console.log("Login to existing account");
                 setAllowRedirect(true);
-            } catch (error) {
-                console.log("Wrong password for email", error);
+            } catch (err) {
+                if (err.code !== "auth/user-not-found") {
+                    createErrorMsg(err);
+                }
             }
             await signInWithEmailAndPassword(auth, data.email, data.password);
         } catch (signInError) {
@@ -52,11 +60,11 @@ const Auth = ({ data, method }) => {
                     );
                     console.log("Created new account and login to it");
                     setAllowRedirect(true);
-                } catch (createError) {
-                    console.error("Error in create new account:", createError);
+                } catch (err) {
+                    createErrorMsg(err);
                 }
             } else {
-                console.error("Error in login:", signInError);
+                createErrorMsg(signInError);
             }
         }
     };
@@ -87,6 +95,15 @@ const Auth = ({ data, method }) => {
         }
     };
 
+    const signInAnonymously = () => {
+        setLoginInfo({
+            displayName: "Anonymous User",
+            email: `anonymous${Math.trunc(Math.random() * 10000)}`,
+            isAnonymous: true,
+        });
+        setAllowRedirect(true);
+    };
+
     useEffect(() => {
         console.log("--->", method);
         switch (method) {
@@ -100,24 +117,14 @@ const Auth = ({ data, method }) => {
                 signOutHandler();
                 break;
             case "anonymously":
-                setLoginInfo({
-                    displayName: "Anonymous User",
-                    email: `anonymous${Math.trunc(Math.random() * 10000)}`,
-                    isAnonymous: true,
-                });
-                setAllowRedirect(true);
-
+                signInAnonymously();
                 break;
             default:
                 break;
         }
     }, []);
 
-    return (
-        <div>
-            <Tostify />
-        </div>
-    );
+    return <div>{errorMsg && <Tostify errorMsg={errorMsg} />}</div>;
 };
 
 export default Auth;

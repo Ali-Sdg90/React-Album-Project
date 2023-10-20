@@ -14,7 +14,9 @@ const urlEncoder = (email) => {
         encodeURIComponent(encryptedEmailAdrs)
     );
 
-    return encryptedEmailAdrs;
+    // console.log(hourNumber.toString().padStart(2, "0"));
+
+    return hourNumber.toString().padStart(2, "0") + encryptedEmailAdrs;
 };
 
 export default urlEncoder;

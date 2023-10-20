@@ -9,4 +9,5 @@ body {
     background-size: 300px;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
 }

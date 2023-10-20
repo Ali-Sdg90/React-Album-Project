@@ -5,10 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 // minified version is also included
 import "react-toastify/dist/ReactToastify.min.css";
 
-function Tostify() {
-    toast.error("Wrong Password!", {
-        position: "top-right",
-        autoClose: 3000,
+function Tostify({ errorMsg }) {
+    toast.error(errorMsg, {
+        position: "top-center",
+        autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -19,8 +19,9 @@ function Tostify() {
 
     return (
         <div>
+            {console.log(">>>", errorMsg)}
             <ToastContainer
-                position="top-right"
+                position="top-center"
                 autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import validData from "./validData";
+import validData from "../helper/validData";
 
 import Styles from "./Login.module.css";
 import Auth from "./Auth";
