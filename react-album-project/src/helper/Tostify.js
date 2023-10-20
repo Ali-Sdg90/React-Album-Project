@@ -5,10 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 // minified version is also included
 import "react-toastify/dist/ReactToastify.min.css";
 
-function Tostify({ errorMsg }) {
+function Tostify({ errorMsg, errorTimer }) {
     toast.error(errorMsg, {
         position: "top-center",
-        autoClose: 4000,
+        autoClose: errorTimer,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

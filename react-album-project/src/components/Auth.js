@@ -101,6 +101,7 @@ const Auth = ({ data, method }) => {
             email: `anonymous${Math.trunc(Math.random() * 10000)}`,
             isAnonymous: true,
         });
+
         setAllowRedirect(true);
     };
 
@@ -124,7 +125,11 @@ const Auth = ({ data, method }) => {
         }
     }, []);
 
-    return <div>{errorMsg && <Tostify errorMsg={errorMsg} />}</div>;
+    return (
+        <div>
+            {errorMsg && <Tostify errorMsg={errorMsg} errorTimer={4000} />}
+        </div>
+    );
 };
 
 export default Auth;

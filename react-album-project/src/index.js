@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import axios from "axios";
+import Tostify from "./helper/Tostify";
 
 axios.interceptors.request.use(
     (request) => {
@@ -31,6 +32,13 @@ axios.interceptors.response.use(
 
 ReactDOM.render(
     <BrowserRouter>
+        <Tostify
+            errorMsg={
+                "Make sure your VPN is turned on for connecting to Firebase servers."
+            }
+            errorTimer={8000}
+        />
+
         <App />
     </BrowserRouter>,
     document.getElementById("root")

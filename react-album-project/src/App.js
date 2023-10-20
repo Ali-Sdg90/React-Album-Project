@@ -94,12 +94,9 @@ const App = () => {
             console.log("AllowRedirect:", allowRedirect);
 
             if (allowRedirect) {
-                if (
-                    window.location.href.split("/").reverse()[0] ===
-                    "goAnonymousMode"
-                ) {
+                if (/\S+@\S+\.\S+/.test(loginInfo.email)) {
                     setGoAnonymousMode(true);
-                    
+
                     if (goAnonymousMode) {
                         console.log("Redirect To Todo App!!!");
                         window.location.href =
@@ -134,7 +131,6 @@ const App = () => {
                     <Route path="/React-login-page/" element={<Login />} />
                     <Route path="/React-login-page/*" element={<Login />} />
                 </Routes>
-                {/* <Tostify /> */}
             </AppContext.Provider>
         </div>
     );
