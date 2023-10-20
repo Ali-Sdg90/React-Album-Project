@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/React-login-page/todoApp/static/css/main.274e1d65.css",
-    "main.js": "/React-login-page/todoApp/static/js/main.2c9825e6.js",
-    "static/media/login-background.jpeg": "/React-login-page/todoApp/static/media/login-background.b96f3254a48ace246b42.jpeg",
-    "index.html": "/React-login-page/todoApp/index.html",
-    "main.274e1d65.css.map": "/React-login-page/todoApp/static/css/main.274e1d65.css.map",
-    "main.2c9825e6.js.map": "/React-login-page/todoApp/static/js/main.2c9825e6.js.map"
+    "main.css": "/React-Todo-Login-Page/todoApp/static/css/main.ffcfb4bf.css",
+    "main.js": "/React-Todo-Login-Page/todoApp/static/js/main.1923fc70.js",
+    "static/media/login-background.jpeg": "/React-Todo-Login-Page/todoApp/static/media/login-background.b96f3254a48ace246b42.jpeg",
+    "index.html": "/React-Todo-Login-Page/todoApp/index.html",
+    "main.ffcfb4bf.css.map": "/React-Todo-Login-Page/todoApp/static/css/main.ffcfb4bf.css.map",
+    "main.1923fc70.js.map": "/React-Todo-Login-Page/todoApp/static/js/main.1923fc70.js.map"
   },
   "entrypoints": [
-    "static/css/main.274e1d65.css",
-    "static/js/main.2c9825e6.js"
+    "static/css/main.ffcfb4bf.css",
+    "static/js/main.1923fc70.js"
   ]
 }
