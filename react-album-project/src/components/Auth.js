@@ -8,6 +8,8 @@ import {
     signInWithEmailAndPassword,
 } from "firebase/auth";
 
+import Tostify from "../Tostify";
+
 import { AppContext } from "../App";
 
 const Auth = ({ data, method }) => {
@@ -28,9 +30,18 @@ const Auth = ({ data, method }) => {
 
     const signIn = async () => {
         try {
+            try {
+                await signInWithEmailAndPassword(
+                    auth,
+                    data.email,
+                    data.password
+                );
+                console.log("Login to existing account");
+                setAllowRedirect(true);
+            } catch (error) {
+                console.log("Wrong password for email", error);
+            }
             await signInWithEmailAndPassword(auth, data.email, data.password);
-            console.log("Login to existing account");
-            setAllowRedirect(true);
         } catch (signInError) {
             if (signInError.code === "auth/user-not-found") {
                 try {
@@ -54,8 +65,7 @@ const Auth = ({ data, method }) => {
         try {
             await signInWithPopup(auth, googleProvider);
             console.log("Login W Google");
-            // window.location.href =
-            //     "http://localhost:5000/" + encryptedEmailAdrs;
+
             setAllowRedirect(true);
         } catch (err) {
             if (err.code === "auth/popup-closed-by-user") {
@@ -89,12 +99,25 @@ const Auth = ({ data, method }) => {
             case "logout":
                 signOutHandler();
                 break;
+            case "anonymously":
+                setLoginInfo({
+                    displayName: "Anonymous User",
+                    email: `anonymous${Math.trunc(Math.random() * 10000)}`,
+                    isAnonymous: true,
+                });
+                setAllowRedirect(true);
+
+                break;
             default:
                 break;
         }
     }, []);
 
-    return <div></div>;
+    return (
+        <div>
+            <Tostify />
+        </div>
+    );
 };
 
 export default Auth;

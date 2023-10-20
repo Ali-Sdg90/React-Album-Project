@@ -32,18 +32,18 @@ const App = () => {
 
     const imgCollectionRef = collection(db, "Accounts");
 
-    const validEmail = async (loginInfo) => {
+    const validEmail = async (loginEmail, loginInfo) => {
         try {
             // check if email is new or not
             const accountsQuery = query(
                 accountsCollectionRef,
-                where("email", "==", loginInfo.email)
+                where("email", "==", loginEmail)
             );
             const accountsSnapshot = await getDocs(accountsQuery);
 
             if (accountsSnapshot.size === 0) {
                 const newAccountData = {
-                    email: loginInfo.email,
+                    email: loginEmail,
                     UserInfo: loginInfo,
                     UserTodo: [],
                 };
@@ -51,7 +51,7 @@ const App = () => {
                 // Use the email as the document ID
                 const newAccountRef = doc(
                     accountsCollectionRef,
-                    loginInfo.email
+                    loginEmail
                 );
 
                 await setDoc(newAccountRef, newAccountData);
@@ -78,7 +78,10 @@ const App = () => {
     useEffect(() => {
         console.log("=>", loginInfo.email);
         if (loginInfo.email) {
-            validEmail(JSON.parse(JSON.stringify(loginInfo))).then(() => {
+            validEmail(
+                loginInfo.email,
+                JSON.parse(JSON.stringify(loginInfo))
+            ).then(() => {
                 setEncryptedEmailAdrs(urlEncoder(loginInfo.email));
 
                 console.log("Ready to SEND");
@@ -114,6 +117,7 @@ const App = () => {
                     <Route path="/React-login-page/" element={<Login />} />
                     <Route path="/React-login-page/*" element={<Login />} />
                 </Routes>
+                {/* <Tostify /> */}
             </AppContext.Provider>
         </div>
     );

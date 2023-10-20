@@ -152,7 +152,6 @@
 
 .formButtones button div {
     width: 400px;
-    /* white-space: nowrap; */
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -197,11 +196,11 @@
 }
 
 .container button:active {
-    letter-spacing: 1.1875px;
+    letter-spacing: 1.19px;
     transform: translate(0, 1.25px);
     box-shadow: 0 2.5px 12.5px rgba(0, 0, 0, 0.3);
 }
 
 .container button:active {
-    letter-spacing: 0.625px;
+    letter-spacing: 0.63px;
 }

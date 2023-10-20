@@ -14,8 +14,6 @@ const urlEncoder = (email) => {
         encodeURIComponent(encryptedEmailAdrs)
     );
 
-    console.log(encryptedEmailAdrs);
-
     return encryptedEmailAdrs;
 };
 

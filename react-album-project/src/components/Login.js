@@ -123,7 +123,7 @@ const Login = () => {
                     <button
                         onClick={(event) => {
                             event.preventDefault();
-                            setAllowAuth("gmail");
+                            setAllowAuth("anonymously");
                         }}
                     >
                         Login Anonymously
