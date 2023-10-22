@@ -6,7 +6,10 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import axios from "axios";
+
 import Tostify from "./helper/Tostify";
+import setCookie from "./helper/setCookie";
+import checkCookie from "./helper/checkCookie";
 
 axios.interceptors.request.use(
     (request) => {
@@ -32,12 +35,18 @@ axios.interceptors.response.use(
 
 ReactDOM.render(
     <BrowserRouter>
-        <Tostify
-            errorMsg={
-                "Make sure your VPN is turned on for connecting to Firebase servers."
-            }
-            errorTimer={8000}
-        />
+        {!checkCookie("todoAppVPNWarning") && (
+            <>
+                {setCookie("todoAppVPNWarning", "Cookie value", 5)}
+                <Tostify
+                    errorMsg={
+                        "Make sure your VPN is turned on for connecting to Firebase servers."
+                    }
+                    errorTimer={8000}
+                    errorPosition="top-center"
+                />
+            </>
+        )}
 
         <App />
     </BrowserRouter>,

@@ -39,6 +39,9 @@ const Login = () => {
         if (!Object.keys(errors).length) {
             console.log("OK");
             setAllowAuth("email");
+            if (allowAuth === "email") {
+                setAllowAuth("reload");
+            }
         } else {
             console.log("Error");
             setAllowAuth("");
@@ -129,7 +132,8 @@ const Login = () => {
                         Login Anonymously
                     </button>
 
-                    {loginInfo.email ? (
+                    {loginInfo.email &&
+                    loginInfo.displayName !== "Anonymous User" ? (
                         <div className={Styles.withAccountBtns}>
                             <button
                                 onClick={(event) => {
@@ -153,7 +157,6 @@ const Login = () => {
                             </button>
                         </div>
                     ) : (
-                        // <div></div>
                         <></>
                     )}
                 </div>

@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 
 import "./App.css";
+
 import Auth from "./components/Auth";
 import Login from "./components/Login";
 import urlEncoder from "./helper/urlEncoder";
@@ -18,6 +19,7 @@ import urlDecoder from "./helper/urlDecoder";
 
 import { db } from "./config/firebase";
 import { Route, Routes } from "react-router-dom";
+import PageNotFound from "./components/PageNotFound";
 
 export const AppContext = React.createContext();
 
@@ -107,12 +109,13 @@ const App = () => {
                     window.location.href =
                         "http://localhost:5000/" + encryptedEmailAdrs;
                 }
+                console.log("DONW");
             }
         }
     }, [encryptedEmailAdrs]);
 
     return (
-        <div>
+        <div style={{ width: "100vw" }}>
             <AppContext.Provider
                 value={{
                     loginInfo,
@@ -128,8 +131,18 @@ const App = () => {
                     <Auth method={"reload"} />
                 )}
                 <Routes>
-                    <Route path="/React-login-page/" element={<Login />} />
-                    <Route path="/React-login-page/*" element={<Login />} />
+                    <Route
+                        path="/React-Todo-Login-Page/todoApp"
+                        element={<Login />}
+                    />
+                    <Route
+                        path="http://localhost:3000/React-Todo-Login-Page/todoApp/goAnonymousMode"
+                        element={<Login />}
+                    />
+                    <Route
+                        path="/React-Todo-Login-Page/*"
+                        element={<PageNotFound />}
+                    />
                 </Routes>
             </AppContext.Provider>
         </div>

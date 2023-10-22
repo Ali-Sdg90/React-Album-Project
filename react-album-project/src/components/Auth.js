@@ -127,7 +127,13 @@ const Auth = ({ data, method }) => {
 
     return (
         <div>
-            {errorMsg && <Tostify errorMsg={errorMsg} errorTimer={4000} />}
+            {errorMsg && (
+                <Tostify
+                    errorMsg={errorMsg}
+                    errorTimer={4000}
+                    errorPosition="top-right"
+                />
+            )}
         </div>
     );
 };
