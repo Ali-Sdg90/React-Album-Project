@@ -25,13 +25,24 @@ export const AppContext = React.createContext();
 
 const accountsCollectionRef = collection(db, "Accounts");
 
-document.title = "React login page";
+const localMode = true;
 
 const App = () => {
     const [encryptedEmailAdrs, setEncryptedEmailAdrs] = useState("");
     const [loginInfo, setLoginInfo] = useState({});
     const [allowRedirect, setAllowRedirect] = useState(false);
     const [goAnonymousMode, setGoAnonymousMode] = useState(false);
+
+    let LoginBaseURL = "";
+    let TodoBaseURL = "";
+
+    if (localMode) {
+        LoginBaseURL = "http://localhost:3000/React-Todo-Login-Page/";
+        TodoBaseURL = "http://localhost:5000/";
+    } else {
+        LoginBaseURL = "http://localhost:3000/React-Todo-Login-Page/";
+        TodoBaseURL = "http://localhost:5000/";
+    }
 
     const imgCollectionRef = collection(db, "Accounts");
 
@@ -101,13 +112,11 @@ const App = () => {
 
                     if (goAnonymousMode) {
                         console.log("Redirect To Todo App!!!");
-                        window.location.href =
-                            "http://localhost:5000/" + encryptedEmailAdrs;
+                        window.location.href = TodoBaseURL + encryptedEmailAdrs;
                     }
                 } else {
                     console.log("Redirect To Todo App!!!");
-                    window.location.href =
-                        "http://localhost:5000/" + encryptedEmailAdrs;
+                    window.location.href = TodoBaseURL + encryptedEmailAdrs;
                 }
                 console.log("DONW");
             }
@@ -122,6 +131,7 @@ const App = () => {
                     setLoginInfo,
                     encryptedEmailAdrs,
                     setAllowRedirect,
+                    TodoBaseURL,
                 }}
             >
                 {window.location.href.split("/").reverse()[0] ===
@@ -132,15 +142,15 @@ const App = () => {
                 )}
                 <Routes>
                     <Route
-                        path="/React-Todo-Login-Page/todoApp"
+                        path="/Todo-Login-Page"
                         element={<Login />}
                     />
                     <Route
-                        path="http://localhost:3000/React-Todo-Login-Page/todoApp/goAnonymousMode"
+                        path={`/Todo-Login-Page/goAnonymousMode`}
                         element={<Login />}
                     />
                     <Route
-                        path="/React-Todo-Login-Page/*"
+                        path="*"
                         element={<PageNotFound />}
                     />
                 </Routes>

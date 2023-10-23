@@ -12,7 +12,8 @@ const Login = () => {
         password: "",
     });
 
-    const { loginInfo, encryptedEmailAdrs } = useContext(AppContext);
+    const { loginInfo, encryptedEmailAdrs, TodoBaseURL } =
+        useContext(AppContext);
 
     const [errors, setErrors] = useState({});
     const [isFocused, setIsFocused] = useState({});
@@ -140,8 +141,7 @@ const Login = () => {
                                     event.preventDefault();
                                     console.log("SEND");
                                     window.location.href =
-                                        "http://localhost:5000/" +
-                                        encryptedEmailAdrs;
+                                        TodoBaseURL + encryptedEmailAdrs;
                                 }}
                             >
                                 <div>Continue with {loginInfo.email}</div>
