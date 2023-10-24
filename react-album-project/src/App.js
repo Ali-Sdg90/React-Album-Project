@@ -25,13 +25,12 @@ export const AppContext = React.createContext();
 
 const accountsCollectionRef = collection(db, "Accounts");
 
-const localMode = true;
+const localMode = false;
 
 const App = () => {
     const [encryptedEmailAdrs, setEncryptedEmailAdrs] = useState("");
     const [loginInfo, setLoginInfo] = useState({});
     const [allowRedirect, setAllowRedirect] = useState(false);
-    const [goAnonymousMode, setGoAnonymousMode] = useState(false);
 
     let LoginBaseURL = "";
     let TodoBaseURL = "";
@@ -40,8 +39,8 @@ const App = () => {
         LoginBaseURL = "http://localhost:3000/Todo-Login-Page/";
         TodoBaseURL = "http://localhost:5000/";
     } else {
-        LoginBaseURL = "http://localhost:3000/Todo-Login-Page/";
-        TodoBaseURL = "http://localhost:5000/";
+        LoginBaseURL = "https://ali-sdg90.github.io/Todo-Login-Page/";
+        TodoBaseURL = "https://ali-sdg9093-todo-app.web.app/";
     }
 
     const imgCollectionRef = collection(db, "Accounts");
