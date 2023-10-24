@@ -204,3 +204,9 @@
 .container button:active {
     letter-spacing: 0.63px;
 }
+
+.container .loadingDiv {
+    background: url("../imgs/loading.gif") center/cover no-repeat;
+    width: 107px;
+    height: 107px;
+}

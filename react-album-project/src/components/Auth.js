@@ -96,13 +96,25 @@ const Auth = ({ data, method }) => {
     };
 
     const signInAnonymously = () => {
+        const newLoginInfo = {
+            displayName: "Anonymous User",
+            email: `anonymous${Math.trunc(Math.random() * 10000)}`,
+            isAnonymous: true,
+        };
+
+        setTimeout(() => {
+            setLoginInfo(newLoginInfo);
+        }, 1000);
+
+        setAllowRedirect(true);
+    };
+
+    const signInAutoAnonymously = () => {
         setLoginInfo({
             displayName: "Anonymous User",
             email: `anonymous${Math.trunc(Math.random() * 10000)}`,
             isAnonymous: true,
         });
-
-        setAllowRedirect(true);
     };
 
     useEffect(() => {
@@ -119,6 +131,9 @@ const Auth = ({ data, method }) => {
                 break;
             case "anonymously":
                 signInAnonymously();
+                break;
+            case "autoAnonymously":
+                signInAutoAnonymously();
                 break;
             default:
                 break;

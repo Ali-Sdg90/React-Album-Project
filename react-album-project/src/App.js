@@ -37,10 +37,10 @@ const App = () => {
     let TodoBaseURL = "";
 
     if (localMode) {
-        LoginBaseURL = "http://localhost:3000/React-Todo-Login-Page/";
+        LoginBaseURL = "http://localhost:3000/Todo-Login-Page/";
         TodoBaseURL = "http://localhost:5000/";
     } else {
-        LoginBaseURL = "http://localhost:3000/React-Todo-Login-Page/";
+        LoginBaseURL = "http://localhost:3000/Todo-Login-Page/";
         TodoBaseURL = "http://localhost:5000/";
     }
 
@@ -106,19 +106,16 @@ const App = () => {
             console.log("DecodedURL:", urlDecoder(encryptedEmailAdrs));
             console.log("AllowRedirect:", allowRedirect);
 
-            if (allowRedirect) {
-                if (/\S+@\S+\.\S+/.test(loginInfo.email)) {
-                    setGoAnonymousMode(true);
+            if (
+                window.location.href.split("/").reverse()[0] ===
+                "goAnonymousMode"
+            ) {
+                setAllowRedirect(true);
+            }
 
-                    if (goAnonymousMode) {
-                        console.log("Redirect To Todo App!!!");
-                        window.location.href = TodoBaseURL + encryptedEmailAdrs;
-                    }
-                } else {
-                    console.log("Redirect To Todo App!!!");
-                    window.location.href = TodoBaseURL + encryptedEmailAdrs;
-                }
-                console.log("DONW");
+            if (allowRedirect) {
+                console.log("Redirect To Todo App!!!");
+                window.location.href = TodoBaseURL + encryptedEmailAdrs;
             }
         }
     }, [encryptedEmailAdrs]);
@@ -136,23 +133,17 @@ const App = () => {
             >
                 {window.location.href.split("/").reverse()[0] ===
                 "goAnonymousMode" ? (
-                    <Auth method={"anonymously"} />
+                    <Auth method={"autoAnonymously"} />
                 ) : (
                     <Auth method={"reload"} />
                 )}
                 <Routes>
-                    <Route
-                        path="/Todo-Login-Page"
-                        element={<Login />}
-                    />
+                    <Route path="/Todo-Login-Page" element={<Login />} />
                     <Route
                         path={`/Todo-Login-Page/goAnonymousMode`}
                         element={<Login />}
                     />
-                    <Route
-                        path="*"
-                        element={<PageNotFound />}
-                    />
+                    <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </AppContext.Provider>
         </div>

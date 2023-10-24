@@ -134,31 +134,36 @@ const Login = () => {
                     </button>
 
                     {loginInfo.email &&
-                    loginInfo.displayName !== "Anonymous User" ? (
-                        <div className={Styles.withAccountBtns}>
-                            <button
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    console.log("SEND");
-                                    window.location.href =
-                                        TodoBaseURL + encryptedEmailAdrs;
-                                }}
-                            >
-                                <div>Continue with {loginInfo.email}</div>
-                            </button>
+                        (encryptedEmailAdrs ? (
+                            loginInfo.displayName !== "Anonymous User" && (
+                                <div className={Styles.withAccountBtns}>
+                                    <button
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                            console.log("SEND");
+                                            window.location.href =
+                                                TodoBaseURL +
+                                                encryptedEmailAdrs;
+                                        }}
+                                    >
+                                        <div>
+                                            Continue with {loginInfo.email}
+                                        </div>
+                                    </button>
 
-                            <button
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    setAllowAuth("logout");
-                                }}
-                            >
-                                <div>Logout of {loginInfo.email}</div>
-                            </button>
-                        </div>
-                    ) : (
-                        <></>
-                    )}
+                                    <button
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                            setAllowAuth("logout");
+                                        }}
+                                    >
+                                        <div>Logout of {loginInfo.email}</div>
+                                    </button>
+                                </div>
+                            )
+                        ) : (
+                            <div className={Styles.loadingDiv}> </div>
+                        ))}
                 </div>
             </form>
 
