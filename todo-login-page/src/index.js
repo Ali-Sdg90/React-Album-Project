@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import App from "./App";
 import "./index.css";
@@ -36,7 +36,7 @@ axios.interceptors.response.use(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    <BrowserRouter>
+    <HashRouter>
         {!checkCookie("todoAppVPNWarning") && (
             <>
                 {setCookie("todoAppVPNWarning", "Cookie value", 5)}
@@ -50,5 +50,5 @@ root.render(
             </>
         )}
         <App />
-    </BrowserRouter>
+    </HashRouter>
 );
