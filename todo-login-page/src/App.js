@@ -137,9 +137,9 @@ const App = () => {
                     <Auth method={"reload"} />
                 )}
                 <Routes>
-                    <Route path="/" element={<Login />} />
+                    <Route path="/Todo-Login-Page/" element={<Login />} />
                     <Route
-                        path={`/goAnonymousMode`}
+                        path={`Todo-Login-Page/goAnonymousMode`}
                         element={<Login />}
                     />
                     <Route path="*" element={<PageNotFound />} />
