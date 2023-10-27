@@ -18,8 +18,9 @@ import urlEncoder from "./helper/urlEncoder";
 import urlDecoder from "./helper/urlDecoder";
 
 import { db } from "./config/firebase";
-import { Route, Routes } from "react-router-dom";
+import { Route, HashRouter as Router } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
+import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 
 export const AppContext = React.createContext();
 
@@ -36,10 +37,10 @@ const App = () => {
     let TodoBaseURL = "";
 
     if (localMode) {
-        LoginBaseURL = "http://localhost:3000/Todo-Login-Page/";
+        LoginBaseURL = "http://localhost:3000/Todo-Login-Page/#/";
         TodoBaseURL = "http://localhost:5000/";
     } else {
-        LoginBaseURL = "https://ali-sdg90.github.io/Todo-Login-Page/";
+        LoginBaseURL = "https://ali-sdg90.github.io/Todo-Login-Page/#/";
         TodoBaseURL = "https://ali-sdg9093-todo-app.web.app/";
     }
 
@@ -136,14 +137,19 @@ const App = () => {
                 ) : (
                     <Auth method={"reload"} />
                 )}
-                <Routes>
-                    <Route path="/Todo-Login-Page/" element={<Login />} />
-                    <Route
-                        path={`Todo-Login-Page/goAnonymousMode`}
-                        element={<Login />}
-                    />
-                    <Route path="*" element={<PageNotFound />} />
-                </Routes>
+                <Router>
+                    <Switch>
+                        <Route
+                            path="/goAnonymousMode"
+                            component={Login}
+                        />
+                        {/* <Route
+                            path="/*"
+                            component={PageNotFound}
+                        /> */}
+                        <Route path="/" component={Login} />
+                    </Switch>
+                </Router>
             </AppContext.Provider>
         </div>
     );
